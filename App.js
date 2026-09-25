@@ -1,18 +1,26 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-//core react to create element
-const heading = React.createElement(
-    "h1",
-    {id:"heading"},
-    "Namaste React"
+//react element
+const title = (
+    <h1 id="heading">"Namaste React"
+    <Title1/> 
+    </h1>  
+);
+//React component
+const Title1 = () =>(
+    <h1>Hello namaste</h1>
+)
+//react component
+const HeadingComponent = () =>( 
+<div id= "componentHeading">
+{title}
+<Title1/>
+<Title1></Title1>
+{Title1()}
+<h1 id="heading">"Namste jsx react"</h1>
+</div>
 );
 
-console.log(heading)
-
-//using jsx
-const jsxheading = <h1 id="heading">"Namste jsx react"</h1>;
-
-console.log(jsxheading)
 const root = createRoot(document.getElementById("root"));
-root.render(jsxheading);
+root.render(<HeadingComponent/>);

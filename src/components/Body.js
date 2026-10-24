@@ -16,7 +16,7 @@ const Body = () => {
   const fetchData = async () =>{
     const response = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9304278&lng=77.678404&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
 
-    const jsonData = await response.json();
+    const jsonData = await response?.json();
 
     setListOfRestaurants(jsonData?.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
     setFilteredRestaurants(jsonData?.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
@@ -35,9 +35,9 @@ const Body = () => {
         <button onClick={() =>{
 
           //filter the restaurant cards based on search text and update UI
-          const filteredList = listOfRestaurants.filter((restaurant) =>
-              restaurant.info.name.toLowerCase().includes(searchText.toLowerCase())
-           );
+          const filteredList = listOfRestaurants.filter((restaurant) => {
+               return restaurant.info.name.toLowerCase().includes(searchText.toLowerCase())
+        });
            setFilteredRestaurants(filteredList);
 
         }}>Search</button>
@@ -53,7 +53,7 @@ const Body = () => {
       <div className="resto-container">
         {filteredRestaurants.map((restaurant) => (
           <RestoCard key={restaurant.info.id} restaurant={restaurant} />
-        ))}
+        ))};
       </div>
     </div>
   );

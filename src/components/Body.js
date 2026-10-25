@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import RestoCard from "./RestoCard";
-import { restaurantList } from "../utils/constant";
+// import { restaurantList } from "../utils/constant";
+import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus.js";
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurants,setFilteredRestaurants] = useState([]);
-
-  // 
+  const onlineStatus = useOnlineStatus();
 
   useEffect(() => {
     fetchData();
@@ -23,7 +24,9 @@ const Body = () => {
   }
 
   return (
-    <div className="body"> 
+    <div className="body">
+      {onlineStatus === false ? <h1> You're Offline, Please check your internet access</h1> :
+      <>
     <div className="filter">
       <div className="search">
         <input
@@ -52,9 +55,13 @@ const Body = () => {
       </div>
       <div className="resto-container">
         {filteredRestaurants.map((restaurant) => (
-          <RestoCard key={restaurant.info.id} restaurant={restaurant} />
-        ))};
+            <Link to={"/restaurant/" + restaurant.info.id} key={restaurant.info.id}>
+              <RestoCard restaurant = {restaurant} />
+            </Link>
+        ))}
       </div>
+      </>
+      } 
     </div>
   );
 };

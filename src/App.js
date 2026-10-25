@@ -1,4 +1,4 @@
-import React from "react";
+import React, {lazy, Suspense}from "react";
 import { createRoot } from "react-dom/client";
 import "../index.css"
 import Header from "./components/Header";
@@ -8,6 +8,11 @@ import Error from "./components/Error";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import RestaurantMenu from "./components/RestaurantMenu";
+// import Grocery from "./components/Grocery";
+
+//chunking,code splitting,dynamic bundling => make application to smaller chunks to optimize
+//loading the component when user clicks on it.
+const Grocery = lazy(() => import ("./components/Grocery"))
 
 const AppLayout = () => {
   return (
@@ -37,7 +42,15 @@ const appRouter = createBrowserRouter([
         element: <Contact />,
       },
       {
-        path: "/restaurants/:resId",
+        path: "/grocery",
+        element: (
+          <Suspense fallback = {<h1>Loading...</h1>}>
+             <Grocery />
+          </Suspense>
+        )
+      },
+      {
+        path: "/restaurant/:resId",
         element: <RestaurantMenu />,
       }
     ],

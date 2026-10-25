@@ -1,6 +1,5 @@
 import { IMG_CDN_URL } from "../utils/constant.js";
 const RestoCard = ({ restaurant }) => {
-  console.log("restau",restaurant.info)
   const { name, cloudinaryImageId, cuisines, avgRating, sla } = restaurant?.info;
 
   return (
